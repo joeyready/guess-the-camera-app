@@ -1,0 +1,16 @@
+[
+    {
+      "id": 1,
+      "brand": "Canon",
+      "model": "AE-1",
+      "fullName": "Canon AE-1",
+      "imagePrefix": "canon-ae-1"
+    },
+    {
+      "id": 2,
+      "brand": "Nikon",
+      "model": "F2",
+      "fullName": "Nikon F2",
+      "imagePrefix": "nikon-f2"
+    }
+  ]
