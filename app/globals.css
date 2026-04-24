@@ -68,3 +68,20 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+.game-title { font-family: 'Bebas Neue', sans-serif; }
+.mono { font-family: 'DM Mono', monospace; }
+
+.hint-slot:hover .reveal-label { opacity: 1 !important; }
+
+.feedback-enter { animation: fadeIn 0.2s ease-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.guess-btn:hover { opacity: 0.85; }
+.skip-btn:hover {
+  background: var(--color-background-secondary) !important;
+  color: var(--color-text-primary) !important;
+}

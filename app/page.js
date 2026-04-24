@@ -71,15 +71,7 @@ export default function CameraGame() {
       fontFamily: "'DM Sans', sans-serif",
       overflow: 'hidden',
     }}>
-      <style>{`
-        .game-title { font-family: 'Bebas Neue', sans-serif; }
-        .mono { font-family: 'DM Mono', monospace; }
-        .hint-slot:hover .reveal-label { opacity: 1 !important; }
-        .feedback-enter { animation: fadeIn 0.2s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-        .guess-btn:hover { opacity: 0.85; }
-        .skip-btn:hover { background: var(--color-background-secondary) !important; color: var(--color-text-primary) !important; }
-      `}</style>
+
 
       <div style={{
         width: '100%',
@@ -108,23 +100,24 @@ export default function CameraGame() {
             const revealed = i < hintsRevealed;
             const isActive = i === hintsRevealed - 1;
             return (
-              <div
-                key={i}
-                className="hint-slot"
-                style={{
-                  flex: 1,
-                  height: 60,
-                  position: 'relative',
-                  overflow: 'hidden',
-                  borderRadius: 8,
-                  border: isActive
-                    ? '1.5px solid var(--color-border-primary)'
-                    : '0.5px solid var(--color-border-tertiary)',
-                  background: 'var(--color-background-secondary)',
-                  cursor: revealed ? 'pointer' : 'default',
-                  transition: 'border-color 0.15s',
-                }}
-              >
+              <div key={i} style={{ flex: 1, position: 'relative' }}>
+                <div
+                  className="hint-slot"
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    paddingBottom: '100%',
+                    overflow: 'hidden',
+                    borderRadius: 8,
+                    border: isActive
+                      ? '1.5px solid var(--color-border-primary)'
+                      : '0.5px solid var(--color-border-tertiary)',
+                    background: 'var(--color-background-secondary)',
+                    cursor: revealed ? 'pointer' : 'default',
+                    transition: 'border-color 0.15s',
+                  }}
+                >
+                  <div style={{ position: 'absolute', inset: 0 }}>
                 {revealed ? (
                   <>
                     <img
@@ -164,38 +157,44 @@ export default function CameraGame() {
                     </span>
                   </div>
                 )}
+                  </div>
+                </div>
               </div>
             );
           })}
         </div>
 
-        {/* Main image — square, capped so it never pushes other elements off screen */}
-        <div style={{
-          width: '100%',
-          aspectRatio: '1',
-          maxHeight: 'min(55vw, 280px)',
-          flexShrink: 0,
-          position: 'relative',
-          overflow: 'hidden',
-          borderRadius: 12,
-          border: '0.5px solid var(--color-border-tertiary)',
-          background: 'var(--color-background-secondary)',
-        }}>
-          <img
-            src={`/images/${currentLevel.imagePrefix}-${gameState === 'won' ? 'answer' : hintsRevealed}.jpg`}
-            alt="Camera hint"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          />
-          <span className="mono" style={{
-            position: 'absolute', top: 10, right: 12,
-            fontSize: 11, letterSpacing: 1,
-            color: 'var(--color-text-secondary)',
-            background: 'var(--color-background-primary)',
-            padding: '3px 8px', borderRadius: 20,
+        {/* Main image — square via padding-bottom trick */}
+        <div style={{ width: '100%', flexShrink: 0 }}>
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            paddingBottom: '100%',
+            borderRadius: 12,
+            overflow: 'hidden',
             border: '0.5px solid var(--color-border-tertiary)',
+            background: 'var(--color-background-secondary)',
           }}>
-            HINT {hintsRevealed} / 5
-          </span>
+            <img
+              src={`/images/${currentLevel.imagePrefix}-${gameState === 'won' ? 'answer' : hintsRevealed}.jpg`}
+              alt="Camera hint"
+              style={{
+                position: 'absolute', inset: 0,
+                width: '100%', height: '100%',
+                objectFit: 'cover', display: 'block',
+              }}
+            />
+            <span className="mono" style={{
+              position: 'absolute', top: 10, right: 12,
+              fontSize: 11, letterSpacing: 1,
+              color: 'var(--color-text-secondary)',
+              background: 'var(--color-background-primary)',
+              padding: '3px 8px', borderRadius: 20,
+              border: '0.5px solid var(--color-border-tertiary)',
+            }}>
+              HINT {hintsRevealed} / 5
+            </span>
+          </div>
         </div>
 
         {/* Feedback bar */}
