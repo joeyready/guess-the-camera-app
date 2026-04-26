@@ -11,6 +11,7 @@ exports.id = "vendor-chunks/next";
 exports.ids = ["vendor-chunks/next"];
 exports.modules = {
 
+<<<<<<< HEAD
 /***/ "./node_modules/next/dist/build/templates/helpers.js":
 /*!***********************************************************!*\
   !*** ./node_modules/next/dist/build/templates/helpers.js ***!
@@ -331,6 +332,8 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 
 /***/ }),
 
+=======
+>>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
 /***/ "(ssr)/./node_modules/next/dist/client/add-base-path.js":
 /*!********************************************************!*\
   !*** ./node_modules/next/dist/client/add-base-path.js ***!
@@ -1901,6 +1904,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(rsc)/./node_modules/next/dist/client/components/not-found.js":
 /*!***************************************************************!*\
   !*** ./node_modules/next/dist/client/components/not-found.js ***!
@@ -1921,6 +1925,8 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 
 /***/ }),
 
+=======
+>>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
 /***/ "(rsc)/./node_modules/next/dist/client/components/render-from-template-context.js":
 /*!**********************************************************************************!*\
   !*** ./node_modules/next/dist/client/components/render-from-template-context.js ***!
