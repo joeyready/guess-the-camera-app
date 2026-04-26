@@ -75,6 +75,8 @@ const CAMERAS = [
     "Praktica MTL 5B", "Praktica B200",
     // Mamiya
     "Mamiya RB67", "Mamiya RZ67", "Mamiya 645 Pro", "Mamiya 7", "Mamiya 6",
+    // Kodak
+    "Kodak Brownie", "Kodak M35", "Kodak Ektar H35", "Kodak Brownie Number 2", "Kodak Brownie Reflex", "Kodak Retina", "Kodak Retina II", "Kodak Retina III",
   ];
   
   export default CAMERAS;
