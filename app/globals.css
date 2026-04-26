@@ -85,3 +85,8 @@
   background: var(--color-background-secondary) !important;
   color: var(--color-text-primary) !important;
 }
+
+/* iOS Safari height fix */
+html {
+  height: -webkit-fill-available;
+}

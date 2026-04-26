@@ -62,7 +62,8 @@ export default function CameraGame() {
 
   return (
     <main style={{
-      height: '100dvh',
+      height: '100vh',
+      maxHeight: '-webkit-fill-available',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
