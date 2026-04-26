@@ -12,7 +12,6 @@
       "model": "F2",
       "fullName": "Nikon F2",
       "imagePrefix": "nikon-f2"
-<<<<<<< HEAD
     },
     {
       "id": 3,
@@ -20,7 +19,6 @@
       "model": "OM-10",
       "fullName": "Olympus OM-10",
       "imagePrefix": "olympus-om-10"
-=======
->>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
+
     }
   ]

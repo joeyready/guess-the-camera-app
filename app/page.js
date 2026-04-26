@@ -2,10 +2,7 @@
 
 import React, { useState } from 'react';
 import levels from '../data/levels.json';
-<<<<<<< HEAD
 import CameraSearch from './components/CameraSearch';
-=======
->>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
 
 const POINTS = [5, 4, 3, 2, 1];
 
@@ -21,7 +18,6 @@ export default function CameraGame() {
   const hintsRevealed = Math.min(guesses.length + 1, 5);
   const roundNum = String(levelIndex + 1).padStart(2, '0');
 
-<<<<<<< HEAD
   // Called when the player selects a camera from the autocomplete dropdown
   const handleGuess = (selectedCamera) => {
     if (!selectedCamera || gameState !== "playing") return;
@@ -31,7 +27,6 @@ export default function CameraGame() {
 
     const feedbackStatus = isCorrect ? "correct" : isSameBrand ? "same-brand" : "wrong";
     const newGuesses = [...guesses, { text: selectedCamera, status: feedbackStatus }];
-=======
   const handleGuess = () => {
     if (!inputValue.trim() || gameState !== "playing") return;
 
@@ -41,7 +36,6 @@ export default function CameraGame() {
 
     const feedbackStatus = isCorrect ? "correct" : isSameBrand ? "same-brand" : "wrong";
     const newGuesses = [...guesses, { text: inputValue, status: feedbackStatus }];
->>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
 
     setGuesses(newGuesses);
     setInputValue("");
@@ -88,10 +82,6 @@ export default function CameraGame() {
       overflow: 'hidden',
     }}>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
       <div style={{
         width: '100%',
         maxWidth: 440,
@@ -137,7 +127,6 @@ export default function CameraGame() {
                   }}
                 >
                   <div style={{ position: 'absolute', inset: 0 }}>
-<<<<<<< HEAD
                     {revealed ? (
                       <>
                         <img
@@ -177,7 +166,6 @@ export default function CameraGame() {
                         </span>
                       </div>
                     )}
-=======
                 {revealed ? (
                   <>
                     <img
@@ -217,7 +205,6 @@ export default function CameraGame() {
                     </span>
                   </div>
                 )}
->>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
                   </div>
                 </div>
               </div>
@@ -301,7 +288,6 @@ export default function CameraGame() {
           </div>
         )}
 
-<<<<<<< HEAD
         {/* Search input — fuzzy autocomplete, guess fires on selection */}
         <CameraSearch
           value={inputValue}
@@ -309,7 +295,6 @@ export default function CameraGame() {
           onSelect={handleGuess}
           disabled={gameState !== 'playing'}
         />
-=======
         {/* Input row */}
         <div style={{ display: 'flex', gap: 8 }}>
           <input
@@ -346,7 +331,6 @@ export default function CameraGame() {
             GUESS
           </button>
         </div>
->>>>>>> cf36bc8e13ca4e2c2e9ace9ec7eb91e5bfff22bb
 
         {/* Score row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
