@@ -12,5 +12,12 @@
       "model": "F2",
       "fullName": "Nikon F2",
       "imagePrefix": "nikon-f2"
+    },
+    {
+      "id": 3,
+      "brand": "Olympus",
+      "model": "OM-10",
+      "fullName": "Olympus OM-10",
+      "imagePrefix": "olympus-om-10"
     }
   ]

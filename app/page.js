@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import levels from '../data/levels.json';
+import CameraSearch from './components/CameraSearch';
 
 const POINTS = [5, 4, 3, 2, 1];
 
@@ -17,15 +18,15 @@ export default function CameraGame() {
   const hintsRevealed = Math.min(guesses.length + 1, 5);
   const roundNum = String(levelIndex + 1).padStart(2, '0');
 
-  const handleGuess = () => {
-    if (!inputValue.trim() || gameState !== "playing") return;
+  // Called when the player selects a camera from the autocomplete dropdown
+  const handleGuess = (selectedCamera) => {
+    if (!selectedCamera || gameState !== "playing") return;
 
-    const normalizedGuess = inputValue.trim().toLowerCase();
-    const isCorrect = normalizedGuess === currentLevel.fullName.toLowerCase();
-    const isSameBrand = normalizedGuess.includes(currentLevel.brand.toLowerCase());
+    const isCorrect = selectedCamera.toLowerCase() === currentLevel.fullName.toLowerCase();
+    const isSameBrand = selectedCamera.toLowerCase().includes(currentLevel.brand.toLowerCase());
 
     const feedbackStatus = isCorrect ? "correct" : isSameBrand ? "same-brand" : "wrong";
-    const newGuesses = [...guesses, { text: inputValue, status: feedbackStatus }];
+    const newGuesses = [...guesses, { text: selectedCamera, status: feedbackStatus }];
 
     setGuesses(newGuesses);
     setInputValue("");
@@ -72,7 +73,6 @@ export default function CameraGame() {
       overflow: 'hidden',
     }}>
 
-
       <div style={{
         width: '100%',
         maxWidth: 440,
@@ -118,45 +118,45 @@ export default function CameraGame() {
                   }}
                 >
                   <div style={{ position: 'absolute', inset: 0 }}>
-                {revealed ? (
-                  <>
-                    <img
-                      src={`/images/${currentLevel.imagePrefix}-${i + 1}.jpg`}
-                      alt={`hint ${i + 1}`}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                    <span
-                      className="reveal-label mono"
-                      style={{
-                        position: 'absolute', bottom: 4, left: '50%',
-                        transform: 'translateX(-50%)',
-                        fontSize: 9, letterSpacing: 1,
-                        color: 'var(--color-text-secondary)',
-                        background: 'var(--color-background-primary)',
-                        padding: '1px 5px', borderRadius: 3,
-                        border: '0.5px solid var(--color-border-tertiary)',
-                        whiteSpace: 'nowrap', opacity: 0,
-                        transition: 'opacity 0.15s', pointerEvents: 'none',
-                      }}
-                    >
-                      HINT {i + 1}
-                    </span>
-                  </>
-                ) : (
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center', gap: 3,
-                  }}>
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style={{ opacity: 0.25 }}>
-                      <rect x="4" y="9" width="12" height="9" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                      <path d="M7 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
-                    <span className="mono" style={{ fontSize: 9, color: 'var(--color-text-tertiary)', letterSpacing: 1 }}>
-                      {i + 1}/5
-                    </span>
-                  </div>
-                )}
+                    {revealed ? (
+                      <>
+                        <img
+                          src={`/images/${currentLevel.imagePrefix}-${i + 1}.jpg`}
+                          alt={`hint ${i + 1}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                        <span
+                          className="reveal-label mono"
+                          style={{
+                            position: 'absolute', bottom: 4, left: '50%',
+                            transform: 'translateX(-50%)',
+                            fontSize: 9, letterSpacing: 1,
+                            color: 'var(--color-text-secondary)',
+                            background: 'var(--color-background-primary)',
+                            padding: '1px 5px', borderRadius: 3,
+                            border: '0.5px solid var(--color-border-tertiary)',
+                            whiteSpace: 'nowrap', opacity: 0,
+                            transition: 'opacity 0.15s', pointerEvents: 'none',
+                          }}
+                        >
+                          HINT {i + 1}
+                        </span>
+                      </>
+                    ) : (
+                      <div style={{
+                        position: 'absolute', inset: 0,
+                        display: 'flex', flexDirection: 'column',
+                        alignItems: 'center', justifyContent: 'center', gap: 3,
+                      }}>
+                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style={{ opacity: 0.25 }}>
+                          <rect x="4" y="9" width="12" height="9" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                          <path d="M7 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                        </svg>
+                        <span className="mono" style={{ fontSize: 9, color: 'var(--color-text-tertiary)', letterSpacing: 1 }}>
+                          {i + 1}/5
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -240,42 +240,13 @@ export default function CameraGame() {
           </div>
         )}
 
-        {/* Input row */}
-        <div style={{ display: 'flex', gap: 8 }}>
-          <input
-            className="mono"
-            style={{
-              flex: 1, height: 42, padding: '0 12px',
-              fontSize: 14, letterSpacing: 0.5,
-              borderRadius: 8, border: '0.5px solid var(--color-border-secondary)',
-              background: 'var(--color-background-primary)',
-              color: 'var(--color-text-primary)', outline: 'none',
-            }}
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleGuess()}
-            placeholder="e.g. Nikon F2, Canon AE-1..."
-            disabled={gameState !== 'playing'}
-            autoFocus
-          />
-          <button
-            className="guess-btn mono"
-            onClick={handleGuess}
-            disabled={gameState !== 'playing'}
-            style={{
-              height: 42, padding: '0 18px',
-              borderRadius: 8, border: 'none',
-              background: 'var(--color-text-primary)',
-              color: 'var(--color-background-primary)',
-              fontSize: 12, letterSpacing: 1,
-              cursor: gameState === 'playing' ? 'pointer' : 'not-allowed',
-              opacity: gameState === 'playing' ? 1 : 0.4,
-              transition: 'opacity 0.15s',
-            }}
-          >
-            GUESS
-          </button>
-        </div>
+        {/* Search input — fuzzy autocomplete, guess fires on selection */}
+        <CameraSearch
+          value={inputValue}
+          onChange={setInputValue}
+          onSelect={handleGuess}
+          disabled={gameState !== 'playing'}
+        />
 
         {/* Score row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
