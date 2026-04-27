@@ -12,7 +12,9 @@ function fuzzyScore(query, candidate) {
   for (const word of words) {
     if (word.startsWith(q)) return 800;
   }
-  let qi = 0, score = 0, consecutive = 0;
+  let qi = 0,
+    score = 0,
+    consecutive = 0;
   for (let ci = 0; ci < c.length && qi < q.length; ci++) {
     if (c[ci] === q[qi]) {
       qi++;
@@ -28,8 +30,7 @@ function fuzzyScore(query, candidate) {
 
 function getMatches(query) {
   if (!query || query.length < 3) return [];
-  return CAMERAS
-    .map(cam => ({ cam, score: fuzzyScore(query, cam) }))
+  return CAMERAS.map((cam) => ({ cam, score: fuzzyScore(query, cam) }))
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, 8)
@@ -43,14 +44,30 @@ function HighlightMatch({ text, query }) {
   const positions = new Set();
   let qi = 0;
   for (let ci = 0; ci < t.length && qi < q.length; ci++) {
-    if (t[ci] === q[qi]) { positions.add(ci); qi++; }
+    if (t[ci] === q[qi]) {
+      positions.add(ci);
+      qi++;
+    }
   }
   return (
     <span>
       {text.split("").map((char, i) =>
-        positions.has(i)
-          ? <mark key={i} style={{ background: "none", color: "var(--color-text-primary)", fontWeight: 600 }}>{char}</mark>
-          : <span key={i} style={{ opacity: 0.55 }}>{char}</span>
+        positions.has(i) ? (
+          <mark
+            key={i}
+            style={{
+              background: "none",
+              color: "var(--color-text-primary)",
+              fontWeight: 600,
+            }}
+          >
+            {char}
+          </mark>
+        ) : (
+          <span key={i} style={{ opacity: 0.55 }}>
+            {char}
+          </span>
+        ),
       )}
     </span>
   );
@@ -65,16 +82,9 @@ export default function CameraSearch({ onSelect, disabled, value, onChange }) {
   const listRef = useRef(null);
   const skipBlurRef = useRef(false); // prevents blur from closing dropdown on item click
 
-  // Reset when parent clears value (new round)
-  const prevValue = useRef(value);
+  // Always sync query to value prop
   useEffect(() => {
-    if (value === "" && prevValue.current !== "") {
-      setQuery("");
-      setResults([]);
-      setOpen(false);
-      setActiveIndex(-1);
-    }
-    prevValue.current = value;
+    setQuery(value || "");
   }, [value]);
 
   const handleChange = (e) => {
@@ -92,26 +102,36 @@ export default function CameraSearch({ onSelect, disabled, value, onChange }) {
     setActiveIndex(-1);
   };
 
-  const handleSelect = useCallback((camera) => {
-    setQuery("");
-    setResults([]);
-    setOpen(false);
-    setActiveIndex(-1);
-    onChange?.("");
-    onSelect(camera);
-  }, [onSelect, onChange]);
+  // Only set the value on dropdown selection, do not submit guess
+  const handleSelect = useCallback(
+    (camera) => {
+      setQuery(camera);
+      setResults([]);
+      setOpen(false);
+      setActiveIndex(-1);
+      onChange?.(camera);
+      // Do not call onSelect here; parent will handle submission
+    },
+    [onChange],
+  );
 
   const handleKeyDown = (e) => {
     if (!open) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActiveIndex(i => Math.min(i + 1, results.length - 1));
+      setActiveIndex((i) => Math.min(i + 1, results.length - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setActiveIndex(i => Math.max(i - 1, 0));
+      setActiveIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter") {
+      // Do not submit guess here; parent will handle Enter
       e.preventDefault();
-      const target = activeIndex >= 0 ? results[activeIndex] : results.length === 1 ? results[0] : null;
+      const target =
+        activeIndex >= 0
+          ? results[activeIndex]
+          : results.length === 1
+            ? results[0]
+            : null;
       if (target) handleSelect(target);
     } else if (e.key === "Escape") {
       setOpen(false);
@@ -128,7 +148,9 @@ export default function CameraSearch({ onSelect, disabled, value, onChange }) {
 
   useEffect(() => {
     if (activeIndex >= 0 && listRef.current) {
-      listRef.current.children[activeIndex]?.scrollIntoView({ block: "nearest" });
+      listRef.current.children[activeIndex]?.scrollIntoView({
+        block: "nearest",
+      });
     }
   }, [activeIndex]);
 
@@ -145,7 +167,9 @@ export default function CameraSearch({ onSelect, disabled, value, onChange }) {
           letterSpacing: 0.5,
           borderRadius: open ? "8px 8px 0 0" : 8,
           border: "0.5px solid",
-          borderColor: open ? "var(--color-border-primary)" : "var(--color-border-secondary)",
+          borderColor: open
+            ? "var(--color-border-primary)"
+            : "var(--color-border-secondary)",
           borderBottom: open ? "none" : undefined,
           background: "var(--color-background-primary)",
           color: "var(--color-text-primary)",
@@ -166,13 +190,19 @@ export default function CameraSearch({ onSelect, disabled, value, onChange }) {
 
       {/* "X more" nudge */}
       {!disabled && query.length > 0 && query.length < 3 && (
-        <span className="mono" style={{
-          position: "absolute", right: 10, top: "50%",
-          transform: "translateY(-50%)",
-          fontSize: 10, letterSpacing: 1,
-          color: "var(--color-text-tertiary)",
-          pointerEvents: "none",
-        }}>
+        <span
+          className="mono"
+          style={{
+            position: "absolute",
+            right: 10,
+            top: "50%",
+            transform: "translateY(-50%)",
+            fontSize: 10,
+            letterSpacing: 1,
+            color: "var(--color-text-tertiary)",
+            pointerEvents: "none",
+          }}
+        >
           {3 - query.length} MORE
         </span>
       )}
@@ -183,8 +213,11 @@ export default function CameraSearch({ onSelect, disabled, value, onChange }) {
           ref={listRef}
           style={{
             position: "absolute",
-            top: "100%", left: 0, right: 0,
-            margin: 0, padding: 0,
+            top: "100%",
+            left: 0,
+            right: 0,
+            margin: 0,
+            padding: 0,
             listStyle: "none",
             background: "var(--color-background-primary)",
             border: "0.5px solid var(--color-border-primary)",
@@ -208,12 +241,14 @@ export default function CameraSearch({ onSelect, disabled, value, onChange }) {
                 padding: "10px 12px",
                 fontSize: 13,
                 cursor: "pointer",
-                background: i === activeIndex
-                  ? "var(--color-background-secondary)"
-                  : "transparent",
-                borderBottom: i < results.length - 1
-                  ? "0.5px solid var(--color-border-tertiary)"
-                  : "none",
+                background:
+                  i === activeIndex
+                    ? "var(--color-background-secondary)"
+                    : "transparent",
+                borderBottom:
+                  i < results.length - 1
+                    ? "0.5px solid var(--color-border-tertiary)"
+                    : "none",
                 userSelect: "none",
               }}
             >
