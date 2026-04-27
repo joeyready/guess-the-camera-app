@@ -4,15 +4,12 @@ import React, { useState } from "react";
 import levels from "../data/levels.json";
 import CameraSearch from "./components/CameraSearch";
 
-const POINTS = [5, 4, 3, 2, 1];
-
 export default function CameraGame() {
   const [levelIndex, setLevelIndex] = useState(0);
   const [guesses, setGuesses] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [gameState, setGameState] = useState("playing");
   const [viewingHint, setViewingHint] = useState(null); // null means show current hint
-  // Removed score and streak
 
   const currentLevel = levels[levelIndex];
   const hintsRevealed = Math.min(guesses.length + 1, 5);
@@ -105,7 +102,6 @@ export default function CameraGame() {
         paddingTop: "50px",
         background: "var(--color-background-tertiary)",
         fontFamily: "'DM Sans', sans-serif",
-        overflow: "hidden",
       }}
     >
       <div
@@ -118,31 +114,63 @@ export default function CameraGame() {
         }}
       >
         {/* Header */}
-        <div style={{ display: "flex", alignItems: "baseline", gap: 20 }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "auto 1fr",
+            alignItems: "end", // Align to the bottom of the grid row
+            gap: 16,
+            width: "100%",
+          }}
+        >
           <h1
             className="game-title"
             style={{
-              fontSize: 32,
+              fontSize: 36,
+              lineHeight: "30px", // Set a fixed line-height smaller than the font-size to "crop" the box
               letterSpacing: 2,
               color: "var(--color-text-primary)",
-              lineHeight: 0.5,
               margin: 0,
+              padding: 0,
+              textTransform: "uppercase",
             }}
           >
             GUESS THE CAMERA
           </h1>
-          <span
-            className="mono"
+
+          <div
             style={{
-              fontSize: 12,
-              letterSpacing: 1,
-              color: "var(--color-text-tertiary)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              // This is the manual nudge. Adjust this pixel value until it looks perfect.
+              marginBottom: "2px",
             }}
           >
-            GAME NO. {roundNum}
-          </span>
+            <span
+              className="mono"
+              style={{
+                fontSize: 12,
+                lineHeight: 1,
+                letterSpacing: 1,
+                color: "var(--color-text-tertiary)",
+              }}
+            >
+              NO. {roundNum}
+            </span>
+            <span
+              className="mono"
+              style={{
+                fontSize: 12,
+                lineHeight: 1,
+                letterSpacing: 1,
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              04/26/2026
+            </span>
+          </div>
         </div>
-
         {/* Main image — square via padding-bottom trick */}
         <div style={{ width: "100%", flexShrink: 0 }}>
           <div
@@ -186,7 +214,6 @@ export default function CameraGame() {
             </span>
           </div>
         </div>
-
         {/* Hint thumbnail strip */}
         <div style={{ display: "flex", gap: 20 }}>
           {[...Array(5)].map((_, i) => {
@@ -309,7 +336,6 @@ export default function CameraGame() {
             );
           })}
         </div>
-
         {/* Search input — fuzzy autocomplete, guess fires on submit, skip next to submit */}
         <form
           onSubmit={(e) => {
@@ -369,12 +395,11 @@ export default function CameraGame() {
             </button>
           </div>
         </form>
-
         {/* List guesses under the form */}
         {guesses.length > 0 && (
           <div style={{ marginTop: 8, width: "100%" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              {guesses.map((g, idx) => (
+              {guesses.map((guess, idx) => (
                 <div
                   key={idx}
                   style={{
@@ -392,19 +417,21 @@ export default function CameraGame() {
                       fontSize: 15,
                     }}
                   >
-                    <span style={{ fontSize: 20 }}>{emojiMap[g.status]}</span>
+                    <span style={{ fontSize: 20 }}>
+                      {emojiMap[guess.status]}
+                    </span>
                     <span
                       className="mono"
                       style={{ color: "var(--color-text-primary)" }}
                     >
-                      {g.text || (
+                      {guess.text || (
                         <span style={{ color: "var(--color-text-tertiary)" }}>
                           Skipped
                         </span>
                       )}
                     </span>
                   </div>
-                  {g.status === "same-brand" && (
+                  {guess.status === "same-brand" && (
                     <span
                       style={{
                         fontSize: 10,
