@@ -111,7 +111,7 @@ export default function CameraGame() {
           maxWidth: 440,
           display: "flex",
           flexDirection: "column",
-          gap: 20,
+          gap: 10,
         }}
       >
         {/* Header */}
@@ -120,7 +120,7 @@ export default function CameraGame() {
             display: "grid",
             gridTemplateColumns: "auto 1fr",
             alignItems: "end", // Align to the bottom of the grid row
-            gap: 16,
+            gap: 55,
             width: "100%",
           }}
         >
@@ -218,7 +218,7 @@ export default function CameraGame() {
           </div>
         </div>
         {/* Hint thumbnail strip */}
-        <div style={{ display: "flex", gap: 20 }}>
+        <div style={{ display: "flex", gap: 10 }}>
           {[...Array(5)].map((_, i) => {
             const revealed = i < hintsRevealed;
             // Get guess for this hint (may be undefined)
@@ -347,7 +347,7 @@ export default function CameraGame() {
             e.preventDefault();
             if (gameState === "playing") handleGuess(inputValue);
           }}
-          style={{ display: "flex", flexDirection: "column", gap: 16 }}
+          style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
           <CameraSearch
             value={inputValue}
