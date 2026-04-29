@@ -79,7 +79,7 @@ export default function CameraGame() {
   const displayedHintIndex =
     viewingHint === null ? currentHintIndex : viewingHint;
   const mainImageIndex =
-    gameState === "won" ? "answer" : displayedHintIndex + 1;
+    gameState !== "playing" ? "answer" : displayedHintIndex + 1;
 
   // Emoji map for guess feedback
   const emojiMap = {
@@ -210,7 +210,7 @@ export default function CameraGame() {
                 border: "0.5px solid var(--color-border-tertiary)",
               }}
             >
-              {gameState === "won" ? "ANSWER" : `HINT ${mainImageIndex} / 5`}
+              {gameState !== "playing" ? "ANSWER" : `HINT ${mainImageIndex} / 5`}
             </span>
           </div>
         </div>
@@ -373,11 +373,12 @@ export default function CameraGame() {
             >
               SUBMIT
             </button>
+
+            {/* <div>{`state: ${gameState}, guesses: ${guesses.length}`}</div> */}
             <button
               type="button"
               className="mono skip-btn"
-              onClick={handleSkip}
-              disabled={gameState !== "playing"}
+              onClick={gameState === "playing" ? handleSkip : handleNextLevel}
               style={{
                 flex: 1,
                 height: 36,
@@ -387,11 +388,11 @@ export default function CameraGame() {
                 color: "var(--color-text-secondary)",
                 fontSize: 13,
                 letterSpacing: 1,
-                cursor: gameState !== "playing" ? "not-allowed" : "pointer",
+                cursor: "pointer",
                 transition: "background 0.12s, color 0.12s",
               }}
             >
-              SKIP
+              {gameState === "playing" ? "SKIP" : "NEXT"}
             </button>
           </div>
         </form>
