@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import levels from "../data/levels.json";
 import CameraSearch from "./components/CameraSearch";
+import Image from "next/image";
 
 export default function CameraGame() {
   const [levelIndex, setLevelIndex] = useState(0);
@@ -183,9 +184,11 @@ export default function CameraGame() {
               background: "var(--color-background-secondary)",
             }}
           >
-            <img
+            <Image
               src={`/images/${currentLevel.imagePrefix}-${mainImageIndex}.jpg`}
-              alt="Camera hint"
+              alt="Camera Hint"
+              width={400}
+              height={400}
               style={{
                 position: "absolute",
                 inset: 0,
@@ -254,9 +257,11 @@ export default function CameraGame() {
                   <div style={{ position: "absolute", inset: 0 }}>
                     {revealed ? (
                       <>
-                        <img
+                        <Image
                           src={`/images/${currentLevel.imagePrefix}-${i + 1}.jpg`}
                           alt={`hint ${i + 1}`}
+                          width={400}
+                          height={400}
                           style={{
                             width: "100%",
                             height: "100%",
