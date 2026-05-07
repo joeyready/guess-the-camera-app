@@ -262,6 +262,7 @@ export default function CameraGame() {
                           alt={`hint ${i + 1}`}
                           width={400}
                           height={400}
+                          blurDataURL={`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWikl8nAAAB${btoa('/* prevent right-click save */')}`}
                           style={{
                             width: "100%",
                             height: "100%",
