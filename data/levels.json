@@ -28,5 +28,13 @@
       "fullName": "Olympus XA",
       "imagePrefix": "olympus-xa"
 
+    },
+    {
+      "id": 5,
+      "brand": "Yashica",
+      "model": "A",
+      "fullName": "Yashica A",
+      "imagePrefix": "yashica-a"
+
     }
   ]
