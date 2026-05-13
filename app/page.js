@@ -15,7 +15,7 @@ export default function CameraGame() {
   const currentLevel = levels[levelIndex];
   const hintsRevealed = Math.min(guesses.length + 1, 5);
   const roundNum = String(levelIndex + 1).padStart(2, "0");
-
+  
   // Called when the player selects a camera from the autocomplete dropdown
   const handleGuess = (selectedCamera) => {
     if (gameState !== "playing") return;
