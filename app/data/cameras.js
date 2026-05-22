@@ -7,7 +7,7 @@ const CAMERAS = [
   "Canon P", "Canon VI-L", "Canon 7", "Canon 7s", "Canon Canonet QL17",
   "Canon Canonet QL17 GIII", "Canon Canonet QL19", "Canon Canonet 28",
   "Canon Sure Shot AF35M", "Canon Sure Shot Supreme", "Canon Sure Shot Owl", "Canon Sure Shot Max",
-  "Canon Sure Shot Tele", "Canon Sure Shot WP-1", "Canon Sure Shot Z115", "Canon Sure Shot Z135",
+  "Canon Sure Shot Tele", "Canon Sure Shot TeleMax", "Canon Sure Shot WP-1", "Canon Sure Shot Z115", "Canon Sure Shot Z135",
   "Canon Autoboy Luna", "Canon Autoboy S", "Canon Autoboy SII", "Canon Autoboy Jet", "Canon Autoboy Mini T",
   "Canon Prima Zoom 76", "Canon Prima Super 115", "Canon Prima Super 135", "Canon Prima BF-800",
   
@@ -87,6 +87,26 @@ const CAMERAS = [
   "Bronica EC-TL", "Bronica EC-TL II", "Bronica ETR", "Bronica ETRC", "Bronica ETRS", 
   "Bronica ETRSi", "Bronica SQ", "Bronica SQ-A", "Bronica SQ-Am", "Bronica SQ-Ai", 
   "Bronica SQ-B", "Bronica GS-1", "Bronica RF645",
+
+  // --- POLAROID ---
+"Polaroid SX-70",
+"Polaroid 1000",
+"Polaroid SLR 680",
+"Polaroid Sun 660",
+"Polaroid Colorpack II",
+"Polaroid Colorpack 1000",
+"Polaroid ProPack",
+"Polaroid Spirit 600 CL",
+"Polaroid 600 SE",
+"Polaroid LandCamera 240",
+"Polaroid LandCamera 330",
+"Polaroid LandCamera 350",
+"Polaroid LandCamera 100",
+"Polaroid LandCamera 110A",
+"Polaroid LandCamera 190",
+"Polaroid LandCamera 195",
+"Polaroid LandCamera 250",
+"Polaroid OneStep",
   
   // --- FUJIFILM ---
   "Fujifilm Klasse", "Fujifilm Klasse S", "Fujifilm Klasse W", "Fujifilm Natura S",
@@ -126,8 +146,7 @@ const CAMERAS = [
   "Voigtlander Bessa R", "Voigtlander Bessa R2", "Voigtlander Bessa R3A",
   "Kodak Brownie", "Kodak M35", "Kodak Ektar H35", "Kodak Retina IIIc", "Kodak Retina IIIa", "Kodak Retina II", "Kodak Retina",
   "Argus C3", "Agfa Isolette", "Chinon CE-4", "Cosina Hi-Lite", "Vivitar V3800N",
-  "Exakta Varex IIa", "Graflex Speed Graphic", "Polaroid SX-70", "Polaroid 600",
-  "Pentacon Six", "Pentacon Six TL", "Exakta 66", "Kowa Six", "Kowa Six MM", "Kowa Super 66", 
+  "Exakta Varex IIa", "Graflex Speed Graphic", "Pentacon Six", "Pentacon Six TL", "Exakta 66", "Kowa Six", "Kowa Six MM", "Kowa Super 66", 
   "Plaubel Makina 67", "Plaubel Makina 670", "Plaubel Makina W67", "Agfa Isolette I", "Agfa Isolette II", 
   "Agfa Isolette III", "Agfa Record III", "Voigtlander Bessa III", "Voigtlander Perkeo I", 
   "Voigtlander Perkeo II", "Minolta Autocord", "Brooks Veriwide", "Gilde 617", "Linhof Technika 70"

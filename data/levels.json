@@ -36,5 +36,30 @@
       "fullName": "Yashica A",
       "imagePrefix": "game-5"
 
+    },
+    {
+      "id": 6,
+      "brand": "Minolta",
+      "model": "SRT-101",
+      "fullName": "Minolta SRT-101",
+      "imagePrefix": "game-6"
+
+    },
+    {
+      "id": 7,
+      "brand": "Canon",
+      "model": "TeleMax",
+      "fullName": "Canon Sure Shot TeleMax",
+      "imagePrefix": "game-7"
+
+    },
+    {
+      "id": 8,
+      "brand": "Polaroid",
+      "model": "Spirit 600 CL",
+      "fullName": "Polaroid Spirit 600 CL",
+      "imagePrefix": "game-8"
+
     }
+    
   ]

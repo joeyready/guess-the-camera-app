@@ -168,7 +168,7 @@ export default function CameraGame() {
                 color: "var(--color-text-secondary)",
               }}
             >
-              04/26/2026
+              05/21/2026
             </span>
           </div>
         </div>
