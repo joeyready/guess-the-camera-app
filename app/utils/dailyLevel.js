@@ -31,23 +31,23 @@ export function generateShareText(guesses, currentLevel, levelNumber) {
   const emojiMap = {
     wrong: "🟥",
     "same-brand": "🟨",
-    correct: "✅",
+    correct: "🟩",
     skipped: "🟥",
   };
   
-  const emojis = guesses.map(g => emojiMap[g.status]).join("");
+  const emojis = guesses.map(g => emojiMap[g.status]).join(" ");
   const won = guesses.some(g => g.status === "correct");
   
   // Add blank boxes if won in fewer than 5 guesses to show uniform 5-box display
   let emojisDisplay = emojis;
   if (won && guesses.length < 5) {
-    const blankBoxes = "⬜".repeat(5 - guesses.length);
+    const blankBoxes = " ⬜".repeat(5 - guesses.length);
     emojisDisplay = emojis + blankBoxes;
   }
   
-  const gameUrl = "https://guess-the-camera-app.vercel.app/";
+  const gameUrl = "https://tinyurl.com/cam-guess";
   
-  return `Guess The Camera #${String(levelNumber).padStart(2, "0")}\n📸 ${emojisDisplay}\n ${gameUrl}`;
+  return `Guess The Camera #${String(levelNumber).padStart(2, "0")}\n📸 ${emojisDisplay}\n${gameUrl}`;
 }
 
 // Create a shareable URL with encoded results
