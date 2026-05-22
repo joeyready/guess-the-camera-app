@@ -45,7 +45,7 @@ export function generateShareText(guesses, currentLevel, levelNumber) {
     emojisDisplay = emojis + blankBoxes;
   }
   
-  const gameUrl = "https://tinyurl.com/cam-guess";
+  const gameUrl = "http://guess.awesomecameras.com/";
   
   return `Guess The Camera #${String(levelNumber).padStart(2, "0")}\n📸 ${emojisDisplay}\n${gameUrl}`;
 }
