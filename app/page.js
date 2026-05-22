@@ -92,12 +92,12 @@ export default function CameraGame() {
   const mainImageIndex =
     gameState !== "playing" ? "answer" : displayedHintIndex + 1;
 
-  // Emoji map for guess feedback
+  // Emoji map for IN GAME guess feedback
   const emojiMap = {
-    wrong: "🟥",
-    "same-brand": "🟨",
+    wrong: "❌",
+    "same-brand": "🟡",
     correct: "✅",
-    skipped: "🟥",
+    skipped: "❌",
   };
 
   return (

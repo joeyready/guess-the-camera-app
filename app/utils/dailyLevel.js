@@ -30,9 +30,9 @@ export function formatDate(date = new Date()) {
 export function generateShareText(guesses, currentLevel, levelNumber) {
   const emojiMap = {
     wrong: "🟥",
-    "same-brand": "🟡",
+    "same-brand": "🟨",
     correct: "✅",
-    skipped: "❌",
+    skipped: "🟥",
   };
   
   const emojis = guesses.map(g => emojiMap[g.status]).join("");
