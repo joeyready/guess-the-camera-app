@@ -94,10 +94,10 @@ export default function CameraGame() {
 
   // Emoji map for guess feedback
   const emojiMap = {
-    wrong: "❌",
-    "same-brand": "🟡",
+    wrong: "🟥",
+    "same-brand": "🟨",
     correct: "✅",
-    skipped: "❌",
+    skipped: "🟥",
   };
 
   return (

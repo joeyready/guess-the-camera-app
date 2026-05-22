@@ -58,7 +58,7 @@ const CAMERAS = [
   
   // --- HASSELBLAD ---
   "Hasselblad 500C", "Hasselblad 500C/M", "Hasselblad 503CX", "Hasselblad 503CW",
-  "Hasselblad 501C", "Hasselblad SWC", "Hasselblad 2000FC", "Hasselblad XPan", "Hasselblad XPan II",
+  "Hasselblad 501C", "Hasselblad SWC", "Hasselblad XPan", "Hasselblad XPan II",
   "Hasselblad 1600F", "Hasselblad 1000F", "Hasselblad 500C", "Hasselblad 500C/M", 
   "Hasselblad 500EL", "Hasselblad 500EL/M", "Hasselblad 500ELX", "Hasselblad 503CX", 
   "Hasselblad 503CXi", "Hasselblad 503CW", "Hasselblad 501C", "Hasselblad 501CM", 
