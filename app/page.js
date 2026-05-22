@@ -1,20 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import levels from "../data/levels.json";
 import CameraSearch from "./components/CameraSearch";
 import Image from "next/image";
+import { getDailyLevelIndex, formatDate, generateShareText } from "./utils/dailyLevel";
 
 export default function CameraGame() {
-  const [levelIndex, setLevelIndex] = useState(0);
   const [guesses, setGuesses] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [gameState, setGameState] = useState("playing");
   const [viewingHint, setViewingHint] = useState(null); // null means show current hint
+  const [todayDate, setTodayDate] = useState(new Date());
 
-  const currentLevel = levels[levelIndex];
+  useEffect(() => {
+    setTodayDate(new Date());
+  }, []);
+
+  const levelIndex = getDailyLevelIndex(todayDate);
+  const currentLevel = levels[levelIndex % levels.length];
   const hintsRevealed = Math.min(guesses.length + 1, 5);
-  const roundNum = String(levelIndex + 1).padStart(2, "0");
+  const roundNum = String((levelIndex % levels.length) + 1).padStart(2, "0");
+  const dateStr = formatDate(todayDate);
   
   // Called when the player selects a camera from the autocomplete dropdown
   const handleGuess = (selectedCamera) => {
@@ -59,13 +66,16 @@ export default function CameraGame() {
     }
   };
 
-  const handleNextLevel = () => {
-    setLevelIndex((i) => (i + 1) % levels.length);
-    setGuesses([]);
-    setInputValue("");
-    setGameState("playing");
-
-    setViewingHint(null);
+  const handleShare = () => {
+    const shareText = generateShareText(guesses, currentLevel, (levelIndex % levels.length) + 1);
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(shareText).then(() => {
+      alert("Results copied to clipboard!");
+    }).catch(err => {
+      // Fallback: show the text in an alert
+      alert(`Share this:\n\n${shareText}`);
+    });
   };
 
   // Skip: reveal next hint (submit empty guess)
@@ -168,7 +178,7 @@ export default function CameraGame() {
                 color: "var(--color-text-secondary)",
               }}
             >
-              05/21/2026
+              {dateStr}
             </span>
           </div>
         </div>
@@ -383,7 +393,7 @@ export default function CameraGame() {
             <button
               type="button"
               className="mono skip-btn"
-              onClick={gameState === "playing" ? handleSkip : handleNextLevel}
+              onClick={gameState === "playing" ? handleSkip : handleShare}
               style={{
                 flex: 1,
                 height: 36,
@@ -397,7 +407,7 @@ export default function CameraGame() {
                 transition: "background 0.12s, color 0.12s",
               }}
             >
-              {gameState === "playing" ? "SKIP" : "NEXT"}
+              {gameState === "playing" ? "SKIP" : "SHARE"}
             </button>
           </div>
         </form>
