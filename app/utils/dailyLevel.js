@@ -29,7 +29,7 @@ export function formatDate(date = new Date()) {
 // Generate a shareable result text with emojis
 export function generateShareText(guesses, currentLevel, levelNumber) {
   const emojiMap = {
-    wrong: "❌",
+    wrong: "🟥",
     "same-brand": "🟡",
     correct: "✅",
     skipped: "❌",
