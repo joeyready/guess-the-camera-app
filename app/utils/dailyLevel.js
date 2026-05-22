@@ -1,7 +1,7 @@
 // Calculate which level to show based on the current date
 export function getDailyLevelIndex(date = new Date()) {
   // Use a fixed start date for the game
-  const startDate = new Date("2026-05-01");
+  const startDate = new Date("2026-05-22");
   
   // Get the start of today in local time
   const today = new Date(date);
@@ -47,7 +47,7 @@ export function generateShareText(guesses, currentLevel, levelNumber) {
   
   const gameUrl = "https://guess-the-camera-app.vercel.app/";
   
-  return `Guess The Camera #${String(levelNumber).padStart(2, "0")} ${gameUrl}\n${emojisDisplay}`;
+  return `Guess The Camera #${String(levelNumber).padStart(2, "0")}\n📸 ${emojisDisplay}\n ${gameUrl}`;
 }
 
 // Create a shareable URL with encoded results
