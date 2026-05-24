@@ -5,6 +5,7 @@ import levels from "../data/levels.json";
 import CameraSearch from "./components/CameraSearch";
 import Image from "next/image";
 import { getDailyLevelIndex, formatDate, generateShareText } from "./utils/dailyLevel";
+import CAMERAS from "./data/cameras";
 
 export default function CameraGame() {
   const [guesses, setGuesses] = useState([]);
@@ -371,7 +372,7 @@ export default function CameraGame() {
                 <button
                   type="submit"
                   className="mono guess-btn"
-                  disabled={gameState !== "playing" || !inputValue}
+                  disabled={gameState !== "playing" || !inputValue || !CAMERAS.includes(inputValue)}
                   style={{
                     flex: 4,
                     height: 36,
@@ -431,8 +432,19 @@ export default function CameraGame() {
                 cursor: "pointer",
                 transition: "background 0.15s",
                 margin: "0 auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
               }}
             >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
               SHARE
             </button>
           )}
@@ -442,15 +454,15 @@ export default function CameraGame() {
           <div style={{ marginTop: 16, width: "100%", textAlign: "center" }}>
             <p
               style={{
-                fontSize: 16,
+                fontSize: 15,
                 color: "var(--color-text-primary)",
                 margin: 0,
                 lineHeight: 1.5,
               }}
             >
               {gameState === "won"
-                ? "Congrats, you solved today's puzzle, come test your camera knowledge again tomorrow!"
-                : "Sorry, better luck tomorrow!"}
+                ? <>Congrats, you solved today's puzzle, come test your camera knowledge again tomorrow!<br /><br />Share your results to challenge your friends!</>
+                : <>Sorry, better luck tomorrow!<br /><br />Today's camera was the <strong>{currentLevel.fullName}</strong>.<br /><br />Share your results to challenge your friends with today's puzzle!</>}
             </p>
           </div>
         )}

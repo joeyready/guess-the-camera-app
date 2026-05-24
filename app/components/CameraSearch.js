@@ -33,7 +33,7 @@ function getMatches(query) {
   return CAMERAS.map((cam) => ({ cam, score: fuzzyScore(query, cam) }))
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 8)
+    .slice(0, 50)
     .map(({ cam }) => cam);
 }
 
