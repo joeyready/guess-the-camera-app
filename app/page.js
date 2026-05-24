@@ -359,109 +359,99 @@ export default function CameraGame() {
           }}
           style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
-          <CameraSearch
-            value={inputValue}
-            onChange={setInputValue}
-            onSelect={() => {}}
-            disabled={gameState !== "playing"}
-          />
-          <div style={{ display: "flex", gap: 8, width: "100%" }}>
-            <button
-              type="submit"
-              className="mono guess-btn"
-              disabled={gameState !== "playing" || !inputValue}
-              style={{
-                flex: 4,
-                height: 36,
-                borderRadius: 8,
-                border: "none",
-                background: "var(--color-text-primary)",
-                color: "var(--color-background-primary)",
-                fontSize: 13,
-                letterSpacing: 1,
-                cursor:
-                  gameState !== "playing" || !inputValue
-                    ? "not-allowed"
-                    : "pointer",
-                transition: "opacity 0.15s",
-              }}
-            >
-              SUBMIT
-            </button>
-
-            {/* <div>{`state: ${gameState}, guesses: ${guesses.length}`}</div> */}
-            <button
-              type="button"
-              className="mono skip-btn"
-              onClick={gameState === "playing" ? handleSkip : handleShare}
-              style={{
-                flex: 1,
-                height: 36,
-                borderRadius: 8,
-                border: "0.5px solid var(--color-border-secondary)",
-                background: "transparent",
-                color: "var(--color-text-secondary)",
-                fontSize: 13,
-                letterSpacing: 1,
-                cursor: "pointer",
-                transition: "background 0.12s, color 0.12s",
-              }}
-            >
-              {gameState === "playing" ? "SKIP" : "SHARE"}
-            </button>
-          </div>
-        </form>
-        {/* List guesses under the form */}
-        {guesses.length > 0 && (
-          <div style={{ marginTop: 8, width: "100%" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              {guesses.map((guess, idx) => (
-                <div
-                  key={idx}
+          {gameState === "playing" && (
+            <>
+              <CameraSearch
+                value={inputValue}
+                onChange={setInputValue}
+                onSelect={() => {}}
+                disabled={gameState !== "playing"}
+              />
+              <div style={{ display: "flex", gap: 8, width: "100%" }}>
+                <button
+                  type="submit"
+                  className="mono guess-btn"
+                  disabled={gameState !== "playing" || !inputValue}
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    gap: 0,
+                    flex: 4,
+                    height: 36,
+                    borderRadius: 8,
+                    border: "none",
+                    background: "var(--color-text-primary)",
+                    color: "var(--color-background-primary)",
+                    fontSize: 13,
+                    letterSpacing: 1,
+                    cursor:
+                      gameState !== "playing" || !inputValue
+                        ? "not-allowed"
+                        : "pointer",
+                    transition: "opacity 0.15s",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      fontSize: 15,
-                    }}
-                  >
-                    <span style={{ fontSize: 20 }}>
-                      {emojiMap[guess.status]}
-                    </span>
-                    <span
-                      className="mono"
-                      style={{ color: "var(--color-text-primary)" }}
-                    >
-                      {guess.text || (
-                        <span style={{ color: "var(--color-text-tertiary)" }}>
-                          Skipped
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                  {guess.status === "same-brand" && (
-                    <span
-                      style={{
-                        fontSize: 10,
-                        color: "#FFD600",
-                        marginLeft: 32,
-                        marginTop: 1,
-                      }}
-                    >
-                      (brand is correct)
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
+                  SUBMIT
+                </button>
+                <button
+                  type="button"
+                  className="mono skip-btn"
+                  onClick={handleSkip}
+                  style={{
+                    flex: 1,
+                    height: 36,
+                    borderRadius: 8,
+                    border: "0.5px solid var(--color-border-secondary)",
+                    background: "transparent",
+                    color: "var(--color-text-secondary)",
+                    fontSize: 13,
+                    letterSpacing: 1,
+                    cursor: "pointer",
+                    transition: "background 0.12s, color 0.12s",
+                  }}
+                >
+                  SKIP
+                </button>
+              </div>
+            </>
+          )}
+          
+          {gameState !== "playing" && (
+            <button
+              type="button"
+              className="mono share-btn"
+              onClick={handleShare}
+              style={{
+                width: "80%",
+                height: 54,
+                borderRadius: 8,
+                border: "none",
+                background: "#22c55e",
+                color: "#fff",
+                fontSize: 13,
+                letterSpacing: 1,
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "background 0.15s",
+                margin: "0 auto",
+              }}
+            >
+              SHARE
+            </button>
+          )}
+        </form>
+        {/* Game completion message */}
+        {gameState !== "playing" && (
+          <div style={{ marginTop: 16, width: "100%", textAlign: "center" }}>
+            <p
+              style={{
+                fontSize: 16,
+                color: "var(--color-text-primary)",
+                margin: 0,
+                lineHeight: 1.5,
+              }}
+            >
+              {gameState === "won"
+                ? "Congrats, you solved today's puzzle, come test your camera knowledge again tomorrow!"
+                : "Sorry, better luck tomorrow!"}
+            </p>
           </div>
         )}
       </div>
