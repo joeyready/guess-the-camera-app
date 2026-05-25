@@ -126,7 +126,7 @@ export default function CameraGame() {
     // Check if played yesterday to maintain streak
     const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     const yesterdayStr = formatDate(yesterday);
-    const playedYesterday = gameStats.stats[yesterdayStr];
+    const playedYesterday = gameStats.stats[yesterdayStr]?.won === true;
     
     if (won) {
       newStats.currentStreak = playedYesterday ? gameStats.currentStreak + 1 : 1;
@@ -157,10 +157,8 @@ export default function CameraGame() {
   const lastGuess = guesses[guesses.length - 1];
   // Removed pointsEarned
   const currentHintIndex = Math.max(0, hintsRevealed - 1);
-  const displayedHintIndex2 =
-    viewingHint === null ? currentHintIndex : viewingHint;
-  const mainImageIndex =
-    gameState !== "playing" ? "answer" : displayedHintIndex2 + 1;
+
+  const mainImageIndex = gameState === "playing" ? displayedHintIndex + 1 : "answer";
 
   // Emoji map for IN GAME guess feedback
   const emojiMap = {
