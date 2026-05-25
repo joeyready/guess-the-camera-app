@@ -214,7 +214,7 @@ export default function CameraGame() {
               textTransform: "uppercase",
             }}
           >
-            GUESS THE CAMERAs
+            GUESS THE CAMERA
           </h1>
 
           <div
