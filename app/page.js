@@ -39,6 +39,18 @@ export default function CameraGame() {
   const hintsRevealed = Math.min(guesses.length + 1, 5);
   const roundNum = String((levelIndex % levels.length) + 1).padStart(2, "0");
   const dateStr = formatDate(todayDate);
+  const hasPlayedToday = gameStats?.lastPlayedDate === dateStr;
+
+  // Restore display state from localStorage when already played today
+  const todayGameData = hasPlayedToday && gameStats?.stats?.[dateStr] ? gameStats.stats[dateStr] : null;
+  const displayGuesses = hasPlayedToday && todayGameData ? todayGameData.guesses : guesses;
+  const displayGameState = hasPlayedToday && todayGameData ? (todayGameData.won ? "won" : "lost") : gameState;
+  const displayHintsRevealed = hasPlayedToday ? 5 : Math.min(guesses.length + 1, 5);
+  const displayCurrentHintIndex = Math.max(0, displayHintsRevealed - 1);
+  const displayedHintIndex =
+    hasPlayedToday || viewingHint === null ? displayCurrentHintIndex : viewingHint;
+  const displayMainImageIndex =
+    displayGameState !== "playing" ? "answer" : displayedHintIndex + 1;
   
   // Called when the player selects a camera from the autocomplete dropdown
   const handleGuess = (selectedCamera) => {
@@ -145,10 +157,10 @@ export default function CameraGame() {
   const lastGuess = guesses[guesses.length - 1];
   // Removed pointsEarned
   const currentHintIndex = Math.max(0, hintsRevealed - 1);
-  const displayedHintIndex =
+  const displayedHintIndex2 =
     viewingHint === null ? currentHintIndex : viewingHint;
   const mainImageIndex =
-    gameState !== "playing" ? "answer" : displayedHintIndex + 1;
+    gameState !== "playing" ? "answer" : displayedHintIndex2 + 1;
 
   // Emoji map for IN GAME guess feedback
   const emojiMap = {
@@ -411,7 +423,7 @@ export default function CameraGame() {
         </div>
         {/* Game stats */}
         {gameStats && gameState !== "playing" && (
-          <div style={{ marginTop: -4,marginBottom: 0, width: "80%", marginLeft: "auto", marginRight: "auto" }}>
+          <div style={{ margin: "-4px auto 0 auto", width: "80%" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, width: "100%" }}>
               <div style={{ textAlign: "center" }}>
                 <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 8px 0" }}>Current streak</p>
