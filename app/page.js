@@ -205,7 +205,7 @@ export default function CameraGame() {
           <h1
             className="game-title"
             style={{
-              fontSize: 36,
+              fontSize: 34,
               lineHeight: "30px", // Set a fixed line-height smaller than the font-size to "crop" the box
               letterSpacing: 2,
               color: "var(--color-text-primary)",
