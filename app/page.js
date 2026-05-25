@@ -13,9 +13,25 @@ export default function CameraGame() {
   const [gameState, setGameState] = useState("playing");
   const [viewingHint, setViewingHint] = useState(null); // null means show current hint
   const [todayDate, setTodayDate] = useState(new Date());
+  const [gameStats, setGameStats] = useState(null);
 
+  // Load stats from localStorage on mount
   useEffect(() => {
     setTodayDate(new Date());
+    const saved = localStorage.getItem("cameraGameStats");
+    if (saved) {
+      setGameStats(JSON.parse(saved));
+    } else {
+      setGameStats({
+        lastPlayedDate: null,
+        currentStreak: 0,
+        longestStreak: 0,
+        gamesPlayed: 0,
+        gamesWon: 0,
+        bestTime: null,
+        stats: {},
+      });
+    }
   }, []);
 
   const levelIndex = getDailyLevelIndex(todayDate);
@@ -85,6 +101,47 @@ export default function CameraGame() {
     handleGuess("");
   };
 
+  // Update stats when game ends
+  const updateStats = (won) => {
+    if (!gameStats) return;
+    
+    const today = formatDate(new Date());
+    const alreadyPlayed = gameStats.stats[today];
+    if (alreadyPlayed) return; // Already played today
+    
+    const newStats = { ...gameStats };
+    
+    // Check if played yesterday to maintain streak
+    const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+    const yesterdayStr = formatDate(yesterday);
+    const playedYesterday = gameStats.stats[yesterdayStr];
+    
+    if (won) {
+      newStats.currentStreak = playedYesterday ? gameStats.currentStreak + 1 : 1;
+      newStats.longestStreak = Math.max(newStats.currentStreak, gameStats.longestStreak);
+      newStats.gamesWon += 1;
+      newStats.bestTime = gameStats.bestTime === null 
+        ? guesses.length 
+        : Math.min(gameStats.bestTime, guesses.length);
+    } else {
+      newStats.currentStreak = 0;
+    }
+    
+    newStats.gamesPlayed += 1;
+    newStats.lastPlayedDate = today;
+    newStats.stats[today] = { won, guesses: guesses.length };
+    
+    setGameStats(newStats);
+    localStorage.setItem("cameraGameStats", JSON.stringify(newStats));
+  };
+
+  // Save stats when game ends
+  useEffect(() => {
+    if (gameState !== "playing" && gameStats) {
+      updateStats(gameState === "won");
+    }
+  }, [gameState]);
+
   const lastGuess = guesses[guesses.length - 1];
   // Removed pointsEarned
   const currentHintIndex = Math.max(0, hintsRevealed - 1);
@@ -147,7 +204,7 @@ export default function CameraGame() {
               textTransform: "uppercase",
             }}
           >
-            GUESS THE CAMERA
+            GUESS THE CAMERAs
           </h1>
 
           <div
@@ -352,6 +409,25 @@ export default function CameraGame() {
             );
           })}
         </div>
+        {/* Game stats */}
+        {gameStats && gameState !== "playing" && (
+          <div style={{ marginTop: -4,marginBottom: 0, width: "80%", marginLeft: "auto", marginRight: "auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, width: "100%" }}>
+              <div style={{ textAlign: "center" }}>
+                <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 8px 0" }}>Current streak</p>
+                <p style={{ fontSize: 28, color: "var(--color-text-primary)", margin: 0, fontWeight: 600 }}>{gameStats.currentStreak}</p>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 8px 0" }}>Best streak</p>
+                <p style={{ fontSize: 28, color: "var(--color-text-primary)", margin: 0, fontWeight: 600 }}>{gameStats.longestStreak}</p>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 8px 0" }}>Total played</p>
+                <p style={{ fontSize: 28, color: "var(--color-text-primary)", margin: 0, fontWeight: 600 }}>{gameStats.gamesPlayed}</p>
+              </div>
+            </div>
+          </div>
+        )}
         {/* Search input — fuzzy autocomplete, guess fires on submit, skip next to submit */}
         <form
           onSubmit={(e) => {
@@ -457,11 +533,11 @@ export default function CameraGame() {
                 fontSize: 15,
                 color: "var(--color-text-primary)",
                 margin: 0,
-                lineHeight: 1.5,
+                lineHeight: 1.3,
               }}
             >
               {gameState === "won"
-                ? <>Congrats, you solved today's puzzle, come test your camera knowledge again tomorrow!<br /><br />Share your results to challenge your friends!</>
+                ? <>Congrats!! You correctly identified the <strong>{currentLevel.fullName}</strong>, come back tomorrow to test your camera knowledge again!<br /><br />Share your results to challenge your friends!</>
                 : <>Sorry, better luck tomorrow!<br /><br />Today's camera was the <strong>{currentLevel.fullName}</strong>.<br /><br />Share your results to challenge your friends with today's puzzle!</>}
             </p>
           </div>
