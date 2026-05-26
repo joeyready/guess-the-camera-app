@@ -212,6 +212,7 @@ export default function CameraGame() {
               margin: 0,
               padding: 0,
               textTransform: "uppercase",
+            whitespace: "nowrap",
             }}
           >
             GUESS THE CAMERA
