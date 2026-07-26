@@ -10,6 +10,7 @@ A daily camera guessing game inspired by Wordle. Test your photography knowledge
     <td><img src="docs/screenshots/gameplay-2.jpg" height="450"></td>
   </tr>
 </table></center>
+
 ## How to Play
 
 - **Get 5 guesses** to identify the camera of the day
