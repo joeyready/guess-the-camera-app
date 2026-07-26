@@ -2,8 +2,8 @@
 
 A daily camera guessing game inspired by Wordle. Test your photography knowledge by identifying vintage and modern cameras from visual hints!
 
-![Description of screenshot](screenshots/gameplay-1.jpg)
-![Description of screenshot](screenshots/gameplay-2.jpg)
+![Description of screenshot](docs/screenshots/gameplay-1.jpg)
+![Description of screenshot](docs/screenshots/gameplay-2.jpg)
 
 ## How to Play
 
