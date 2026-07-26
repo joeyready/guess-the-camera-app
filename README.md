@@ -2,6 +2,8 @@
 
 A daily camera guessing game inspired by Wordle. Test your photography knowledge by identifying vintage and modern cameras from visual hints!
 
+**[Play daily at http://guess.awesomecameras.com](http://guess.awesomecameras.com)**
+
 <center><table>
   <tr>
     <td><img src="docs/screenshots/gameplay-1.jpg" height="450"></td>
@@ -96,7 +98,6 @@ The game features hundreds of classic and modern cameras across major manufactur
 Each daily challenge includes:
 - Progressive image hints
 - Camera brand and model information
-- Difficulty tracking
 
 ## Features Coming Soon
 
@@ -105,14 +106,6 @@ Each daily challenge includes:
 - [ ] Leaderboards
 - [ ] Camera trivia
 
-## License
-
-This project is open source and available under the MIT License.
-
 ## Contributing
 
 Got ideas for cameras to add or want to improve the game? Contributions are welcome!
-
----
-
-**Play daily at:** [Your deployed URL here]
